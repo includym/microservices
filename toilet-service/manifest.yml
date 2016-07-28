@@ -1,0 +1,11 @@
+---
+applications:
+- name: toilet-service
+  memory: 256M
+  instances: 1
+  domain: cfapps.io
+  host: toilet-service-megazonecloud
+  env:
+    SPRING_PROFILES_ACTIVE: dev
+    CONFIG_SERVICE_URI: http://config-service-megazonecloud.cfapps.io
+    EUREKA_SERVICE_URI: http://eureka-service-megazonecloud.cfapps.io
