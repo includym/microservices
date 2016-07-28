@@ -1,0 +1,10 @@
+---
+applications:
+- name: eureka-service
+  memory: 512M
+  instances: 1
+  domain: cfapps.io
+  host: eureka-service-megazonecloud
+  env:
+    SPRING_PROFILES_ACTIVE: dev
+    CONFIG_SERVICE_URI: http://config-service-megazonecloud.cfapps.io
