@@ -1,0 +1,9 @@
+server:
+  port: ${vcap.application.port:8080}
+
+spring:
+  application:
+    name: toilet-service
+  cloud:
+    config:
+      uri: ${CONFIG_SERVICE_URI:http://localhost:8888}
