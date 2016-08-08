@@ -1,0 +1,9 @@
+server:
+  port: ${vcap.application.port:8081}
+
+spring:
+  application:
+    name: doodle-service
+  cloud:
+    config:
+      uri: ${CONFIG_SERVICE_URI:http://localhost:8888}
