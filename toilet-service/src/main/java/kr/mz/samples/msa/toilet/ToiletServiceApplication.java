@@ -8,10 +8,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.stereotype.Component;
 
 import kr.mz.samples.msa.toilet.model.Toilet;
@@ -24,6 +27,17 @@ public class ToiletServiceApplication {
 		SpringApplication.run(ToiletServiceApplication.class, args);
 	}
 
+}
+
+@Configuration
+class ToiletConfiguration extends RepositoryRestConfigurerAdapter {
+
+	//data rest 를 사용하면 @Id 속성이 반환되지 않는다. 아래처럼 설정하면 반환함. 
+	@Override
+	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+		config.exposeIdsFor(Toilet.class);
+	}
+	
 }
 
 @Component

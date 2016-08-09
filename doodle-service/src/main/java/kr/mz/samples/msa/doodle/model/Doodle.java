@@ -22,7 +22,7 @@ public class Doodle {
 		this.toiletId = toiletId;
 		this.name = name;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
