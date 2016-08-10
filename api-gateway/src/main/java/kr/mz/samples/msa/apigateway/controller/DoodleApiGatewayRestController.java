@@ -1,10 +1,8 @@
 package kr.mz.samples.msa.apigateway.controller;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.hateoas.Resources;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import kr.mz.samples.msa.apigateway.model.Doodle;
+import kr.mz.samples.msa.apigateway.util.rest.RestPageImpl;
 
 
 @RestController
@@ -26,18 +25,17 @@ public class DoodleApiGatewayRestController {
 	private RestTemplate restTemplate;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public Collection<Doodle> getDoodles(@RequestParam(value="toiletId", required=false) Long toiletId) {
-		ParameterizedTypeReference<Resources<Doodle>> ptr = new ParameterizedTypeReference<Resources<Doodle>>() {};
+	public Page<Doodle> getDoodles(@RequestParam(value="toiletId", required=false) Long toiletId) {
+		ParameterizedTypeReference<RestPageImpl<Doodle>> ptr = new ParameterizedTypeReference<RestPageImpl<Doodle>>() {};
 		StringBuffer sb = new StringBuffer(SERVICE_URI);
 		sb.append("/doodles");
 		if(toiletId != null) {
-			sb.append("/search/by-toiletId?toiletId={toiletId}");
+			sb.append("/search/by-toilet-id?toiletId={toiletId}");
 		}
 
-		ResponseEntity<Resources<Doodle>> response = this.restTemplate.exchange(sb.toString(), HttpMethod.GET, null, ptr, toiletId);
+		ResponseEntity<RestPageImpl<Doodle>> response = this.restTemplate.exchange(sb.toString(), HttpMethod.GET, null, ptr, toiletId);
 		return response
-				.getBody()
-				.getContent();
+				.getBody();
 	}
 
 }
