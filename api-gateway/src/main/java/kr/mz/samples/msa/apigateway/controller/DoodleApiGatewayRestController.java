@@ -20,7 +20,7 @@ import kr.mz.samples.msa.apigateway.model.Doodle;
 @RequestMapping(value="/doodles")
 public class DoodleApiGatewayRestController {
 
-	private static final String serviceUri = "http://doodle-service";
+	private static final String SERVICE_URI = "http://doodle-service";
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -28,7 +28,7 @@ public class DoodleApiGatewayRestController {
 	@RequestMapping(method=RequestMethod.GET)
 	public Collection<Doodle> getDoodles(@RequestParam(value="toiletId", required=false) Long toiletId) {
 		ParameterizedTypeReference<Resources<Doodle>> ptr = new ParameterizedTypeReference<Resources<Doodle>>() {};
-		StringBuffer sb = new StringBuffer(serviceUri);
+		StringBuffer sb = new StringBuffer(SERVICE_URI);
 		sb.append("/doodles");
 		if(toiletId != null) {
 			sb.append("/search/by-toiletId?toiletId={toiletId}");

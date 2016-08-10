@@ -20,7 +20,7 @@ import kr.mz.samples.msa.apigateway.model.Toilet;
 @RequestMapping(value="/toilets")
 public class ToiletApiGatewayRestController {
 
-	private static final String serviceUri = "http://toilet-service";
+	private static final String SERVICE_URI = "http://toilet-service";
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -28,7 +28,7 @@ public class ToiletApiGatewayRestController {
 	@RequestMapping(method=RequestMethod.GET)
 	public Collection<Toilet> getToilets(@RequestParam(value="name", required=false) String name) {
 		ParameterizedTypeReference<Resources<Toilet>> ptr = new ParameterizedTypeReference<Resources<Toilet>>() {};
-		StringBuffer sb = new StringBuffer(serviceUri);
+		StringBuffer sb = new StringBuffer(SERVICE_URI);
 		sb.append("/toilets");
 		if(name != null) {
 			sb.append("/search/by-name?name={name}");
